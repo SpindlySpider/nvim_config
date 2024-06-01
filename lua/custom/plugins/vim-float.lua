@@ -8,10 +8,5 @@ local float = {
       end,
       { desc = '[g]it [o]ptions -  open lazy git in a floating window' })
   end,
-  opts = {
-    floaterm_title = "lazy git",
-    floaterm_width = 0.9,
-    floaterm_height = 0.9,
-  }
 }
 return float
