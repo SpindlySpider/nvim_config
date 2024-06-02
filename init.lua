@@ -24,6 +24,13 @@ vim.opt.mouse = 'a'
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
+-- setting indenting
+vim.o.expandtab = true
+vim.o.smartindent = true
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+
+
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
@@ -57,7 +64,7 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '| ', trail = '·', nbsp = '␣' }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -90,7 +97,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<C-x>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 vim.keymap.set('n', '<leader>h', function()
   print("open terinal")
-  vim.cmd.vsplit()
+  vim.cmd.split()
   vim.cmd.terminal()
 end, { desc = 'open terminal' })
 
@@ -294,7 +301,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>sgi', builtin.git_status, { desc = '[S]earch [gi]t - brings up git status' })
+      vim.keymap.set('n', '<leader>sgit', builtin.git_status, { desc = '[S]earch [git]' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -573,11 +580,9 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { { 'stylua', "lua_ls" } },
         -- Conform can also run multiple formatters sequentially
-        python = { "isort", "black" },
-        -- You can use a sub-list to tell conform to run *until* a formatter
-        -- is found.
-        javascript = { { "prettierd", "prettier" } },
-        rust = { "rust-analyzer" }
+        python = { "isort", "black" }, -- You can use a sub-list to tell conform to run *until* a formatter is found. javascript = { { "prettierd", "prettier" } },
+        rust = { "rust-analyzer" },
+        ["*"] = { "codespell" },
       },
     },
   },
