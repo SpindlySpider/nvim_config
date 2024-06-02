@@ -1,9 +1,17 @@
 return {
   "smjonas/inc-rename.nvim",
-  name = "rename",
-  config = function()
-    vim.keymap.set("n", "<leader>rn", function()
-      return ":IncRename " .. vim.fn.expand("<cword>")
-    end, { expr = true , desc="[r]e[n]ame"})
-  end
+  cmd = "IncRename",
+  keys = {
+    {
+      "<leader>rn",
+      function ()
+        return ":IncRename " .. vim.fn.expand("<cword>")
+      end,
+      desc = "incremental rename",
+      mode = "n",
+      noremap = true,
+      expr = true
+    }
+  },
+  config = true
 }
