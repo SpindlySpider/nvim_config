@@ -30,7 +30,6 @@ vim.o.smartindent = true
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 
-
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
@@ -95,11 +94,11 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<C-x>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-vim.keymap.set('n', '<leader>h', function()
-  print("open terinal")
+vim.keymap.set('n', '<leader>ot', function()
+  print 'open terminal'
   vim.cmd.split()
   vim.cmd.terminal()
-end, { desc = 'open terminal' })
+end, { desc = '[o]pen [t]erminal' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -164,7 +163,7 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',    opts = {} },
+  { 'numToStr/Comment.nvim', opts = {} },
 
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
@@ -199,7 +198,7 @@ require('lazy').setup({
   -- after the plugin has been loaded:
   --  config = function() ... end
 
-  {                     -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
@@ -251,7 +250,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -344,11 +343,11 @@ require('lazy').setup({
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} },
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim',       opts = {} },
+      { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -559,7 +558,7 @@ require('lazy').setup({
         '<leader>fm',
         function()
           -- require('conform').format { async = true, lsp_fallback = true }
-          vim.lsp.buf.format({ async = true, lsp_fallback = true })
+          vim.lsp.buf.format { async = true, lsp_fallback = true }
         end,
         mode = '',
         desc = '[F]or[M]at buffer',
@@ -578,11 +577,11 @@ require('lazy').setup({
         }
       end,
       formatters_by_ft = {
-        lua = { { 'stylua', "lua_ls" } },
+        lua = { { 'stylua', 'lua_ls' } },
         -- Conform can also run multiple formatters sequentially
-        python = { "isort", "black" }, -- You can use a sub-list to tell conform to run *until* a formatter is found. javascript = { { "prettierd", "prettier" } },
-        rust = { "rust-analyzer" },
-        ["*"] = { "codespell" },
+        python = { 'isort', 'black' }, -- You can use a sub-list to tell conform to run *until* a formatter is found. javascript = { { "prettierd", "prettier" } },
+        rust = { 'rust-analyzer' },
+        ['*'] = { 'codespell' },
       },
     },
   },
