@@ -2,7 +2,7 @@ local neo_tree = {
   "nvim-neo-tree/neo-tree.nvim",
   name = "neo tree",
   keys = {
-    { "<leader>ft", "<cmd>Neotree<cr>", desc = "[F]ile [T]ree - open file tree", mode={"n"} },
+    { "<leader>ft", "<cmd>Neotree reveal<cr>", desc = "[F]ile [T]ree - open file tree", mode={"n"} },
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
