@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# comparing branch
+export branch=""
+# remote - root@192.16.1.x
+export remote=""
+# remote dir - /root/
+export remote_dir=""
+# local_dir - $HOME/Documents/repo/
+# defaults to local dir
+export local_dir="$PWD"
+# this is for pre-configured settings it will call a setup function
+export short_hand=""
+
+
+print_usage() {
+  printf "Hi use this to sync local repos to VMs\n"
+  printf "Options:\n"
+  printf "  r - remote hostname -- root@192.16.1.0\n"
+  printf "  b - git branch to diff against local (this should be the base branch to your current branch) -- preprod\n"
+  printf "  d - remote dir trailing / is important -- /root/some-repo/\n"
+  printf "  l - local dir, this defaults to current working dir -- /home/user/some-repo/\n"
+}
+
+# https://stackoverflow.com/questions/7069682/how-to-get-arguments-with-flags-in-bash
+while getopts 'r:l:d:b:s:' flag; do
+  case "${flag}" in
+    r) remote="${OPTARG}" ;;
+    b) branch="${OPTARG}" ;;
+    d) remote_dir="${OPTARG}" ;;
+    l) local_dir="${OPTARG}" ;;
+    s) short_hand="${OPTARG}" ;;
+    *) print_usage
+       exit 1 ;;
+  esac
+done
+
+if [ $OPTIND -eq 1 ]; then print_usage; exit 1; fi
+
+
+# grab .config/sync-dev/$short_hand
+# for configuration
+
+source "$HOME/.config/sync-dev/$short_hand"
+if [ $? -eq 0 ]; then
+    echo "Succesfully get config: $short_hand"
+else
+  echo "unkown shorthand: $short_hand"
+  exit 1
+fi
+
+# config files should be placed in $HOME/.config/sync-dev/short_hand_name
+# and be a file filled with remote="" and what not
+# e.g.
+# ------ $HOME/.config/sync-dev/ui:
+#  branch="ui-base-branch"
+#  remote="root@192.168.10.1"
+#  remote_dir="/root/ui/"
+#  local_dir="$HOME/programming/ui/"
+
+
+
+# copy over changed files from base repo
+git -C "$local_dir" diff "$branch" --name-only --diff-filter=AM | xargs -I % scp "$local_dir"% "$remote":"$remote_dir"%
+
+# remove files form remote
+git -C "$local_dir" diff "$branch" --name-only --diff-filter=D | xargs -I % ssh "$remote" "rm -f $remote_dir%"
