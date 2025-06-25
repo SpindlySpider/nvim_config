@@ -44,7 +44,7 @@ source "$HOME/.config/sync-dev/$short_hand"
 if [ $? -eq 0 ]; then
     echo "Succesfully get config: $short_hand"
 else
-  echo "unkown shorthand: $short_hand"
+  echo "unknown shorthand: $short_hand"
   exit 1
 fi
 
