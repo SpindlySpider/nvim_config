@@ -10,6 +10,8 @@ export remote_dir=""
 export local_dir="$PWD"
 # this is for pre-configured settings it will call a setup function
 export short_hand=""
+# scp entire local dir to remote
+export full=false
 
 
 print_usage() {
@@ -19,22 +21,26 @@ print_usage() {
   printf "  b - git branch to diff against local (this should be the base branch to your current branch) -- preprod\n"
   printf "  d - remote dir trailing / is important -- /root/some-repo/\n"
   printf "  l - local dir, this defaults to current working dir -- /home/user/some-repo/\n"
+  printf "  s <config_file> - short hand, this will look in /home/user/.sync-dev/<config_file> for a short hand -- ui"
+  printf "  f - full, will just scp entire local dir to remote"
 }
 
 # https://stackoverflow.com/questions/7069682/how-to-get-arguments-with-flags-in-bash
-while getopts 'r:l:d:b:s:' flag; do
+while getopts 'r:l:d:b:s:f' flag; do
   case "${flag}" in
     r) remote="${OPTARG}" ;;
     b) branch="${OPTARG}" ;;
     d) remote_dir="${OPTARG}" ;;
     l) local_dir="${OPTARG}" ;;
     s) short_hand="${OPTARG}" ;;
+    f) full=true ;;
     *) print_usage
        exit 1 ;;
   esac
 done
 
 if [ $OPTIND -eq 1 ]; then print_usage; exit 1; fi
+
 
 
 # grab .config/sync-dev/$short_hand
@@ -57,7 +63,11 @@ fi
 #  remote_dir="/root/ui/"
 #  local_dir="$HOME/programming/ui/"
 
-
+# if there is a full clone then dont diff
+if [ $full = true ]; then
+  scp "$local_dir" "$remote":"$remote_dir"
+  exit 0
+fi
 
 # copy over changed files from base repo
 git -C "$local_dir" diff "$branch" --name-only --diff-filter=AM | xargs -I % scp "$local_dir"% "$remote":"$remote_dir"%
