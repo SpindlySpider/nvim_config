@@ -31,4 +31,5 @@ spell = {
 	end,
 }
 
-return spell
+-- return spell
+return {}
