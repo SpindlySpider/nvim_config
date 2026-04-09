@@ -1,4 +1,4 @@
-return {
+spell = {
 	"lucaSartore/fastspell.nvim",
     -- automatically run the installation script on windows and linux)
     -- if this doesn't work for some reason, you can 
@@ -14,6 +14,7 @@ return {
         -- call setup to initialize fastspell
         fastspell.setup({
             -- Optionally put your custom configurations here
+            cspell_json_file_path = vim.fn.stdpath("config") .. "/cspell.json"
         })
 
         -- decide when to run the spell checking (see :help events for full list)
@@ -29,3 +30,5 @@ return {
 		})
 	end,
 }
+
+return spell
