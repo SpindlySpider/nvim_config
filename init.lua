@@ -163,7 +163,7 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',    opts = {} },
+  { 'numToStr/Comment.nvim', opts = {} },
 
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
@@ -198,33 +198,33 @@ require('lazy').setup({
   -- after the plugin has been loaded:
   --  config = function() ... end
 
-  {                     -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup()
 
       -- Document existing key chains
-      require("which-key").add({
-        { "<leader>c",  group = "[C]ode" },
-        { "<leader>c_", hidden = true },
-        { "<leader>d",  group = "[D]ocument" },
-        { "<leader>d_", hidden = true },
-        { "<leader>h",  group = "Git [H]unk" },
-        { "<leader>h_", hidden = true },
-        { "<leader>r",  group = "[R]ename" },
-        { "<leader>r_", hidden = true },
-        { "<leader>s",  group = "[S]earch" },
-        { "<leader>s_", hidden = true },
-        { "<leader>t",  group = "[T]oggle" },
-        { "<leader>t_", hidden = true },
-        { "<leader>w",  group = "[W]orkspace" },
-        { "<leader>w_", hidden = true },
-      })
+      require('which-key').add {
+        { '<leader>c', group = '[C]ode' },
+        { '<leader>c_', hidden = true },
+        { '<leader>d', group = '[D]ocument' },
+        { '<leader>d_', hidden = true },
+        { '<leader>h', group = 'Git [H]unk' },
+        { '<leader>h_', hidden = true },
+        { '<leader>r', group = '[R]ename' },
+        { '<leader>r_', hidden = true },
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>s_', hidden = true },
+        { '<leader>t', group = '[T]oggle' },
+        { '<leader>t_', hidden = true },
+        { '<leader>w', group = '[W]orkspace' },
+        { '<leader>w_', hidden = true },
+      }
       -- visual mode
-      require('which-key').add({
-        { "<leader>h", desc = "Git [H]unk", mode = "v" },
-      })
+      require('which-key').add {
+        { '<leader>h', desc = 'Git [H]unk', mode = 'v' },
+      }
     end,
   },
 
@@ -238,7 +238,7 @@ require('lazy').setup({
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
-    branch = '0.1.x',
+    -- branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -257,7 +257,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -350,11 +350,11 @@ require('lazy').setup({
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} },
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim',       opts = {} },
+      { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -538,10 +538,11 @@ require('lazy').setup({
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua',    -- Used to format Lua code
-        'black',     -- Used to format Python code
-        'prettier',  -- Used to format js,css and html code
-        'codespell', -- for commond spelling mistakes and nice intellisense
+        'stylua', -- Used to format Lua code
+        'black', -- Used to format Python code
+        'prettier', -- Used to format js,css and html code
+        'codespell', -- for common spelling mistakes and nice intellisense
+        -- 'harper-ls', -- spell check
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -766,38 +767,7 @@ require('lazy').setup({
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
-  { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
-    opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
-    config = function(_, opts)
-      -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
 
-      -- Prefer git instead of curl in order to improve connectivity in some environments
-      require('nvim-treesitter.install').prefer_git = true
-      ---@diagnostic disable-next-line: missing-fields
-      require('nvim-treesitter.configs').setup(opts)
-
-      -- There are additional nvim-treesitter modules that you can use to interact
-      -- with nvim-treesitter. You should go explore a few and see what interests you:
-      --
-      --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-      --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-      --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-    end,
-  },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
@@ -845,3 +815,8 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+--
+--
+vim.opt.foldmethod = 'indent'
+
+require ('nvim-treesitter.install').compilers = { 'zig' }
