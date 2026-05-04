@@ -10,7 +10,7 @@ local neo_tree = {
     "MunifTanjim/nui.nvim",
     -- "3rd/image.nvim",              -- Optional image support in preview window: See `# Preview Mode` for more information
   },
-  config = {
+  opts = {
     close_if_last_window = true,
     popup_border_style = "rounded",
     event_handlers = {
