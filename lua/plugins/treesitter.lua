@@ -13,3 +13,4 @@ sitter.setup({
 })
 
 sitter.install { 'java', 'c', 'lua', 'vim', 'vimdoc', 'query', 'elixir', 'heex', 'javascript', 'typescript', 'html', 'yaml','typst' }
+
