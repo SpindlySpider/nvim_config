@@ -76,4 +76,4 @@ vim.opt.scrolloff = 15
 vim.opt.hlsearch = true
 
 -- set fold level
-vim.o.foldlevel = 4
+vim.o.foldlevel = 8

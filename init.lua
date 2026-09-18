@@ -3,9 +3,9 @@
 require("basic_settings")
 require("keybinds")
 require("auto_commands")
--- require("packages")
 require("plugins")
 require("lsp")
+require("format")
 
 
 -- NOTE: Here is where you install your plugins.
