@@ -6,6 +6,11 @@ require("conform").setup({
   formatters_by_ft={
     lua = {"stylelua"},
     python = {"black"}
+  },
+  formatters={
+    -- isort = {
+      -- command = ""
+    -- }
   }
 })
 

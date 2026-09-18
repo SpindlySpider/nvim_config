@@ -7,3 +7,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+-- pattern to start treesitter on 
+vim.api.nvim_create_autocmd("FileType",{
+  pattern = {"python"},
+  callback = function()
+    vim.treesitter.start()
+  end
+
+
+})

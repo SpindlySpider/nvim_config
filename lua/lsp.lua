@@ -9,7 +9,7 @@ vim.pack.add({
 --- MASON options
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = { "emmylua_ls", "pyright", "stylelua","black" }
+  ensure_installed = { "emmylua_ls", "pyright", "stylelua","isort" }
 })
 
 
