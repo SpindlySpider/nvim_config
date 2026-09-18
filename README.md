@@ -1,9 +1,10 @@
-# kickstart.nvim
-
 ## Introduction
 hi this is my neovim config, I used kick start as a starting base and added some more plugins
 
-## depencies
+## todo:
+- [ ] still need to convert some plugins to the new builtin package manager but for now it will work
+
+## Dependencies
 this requires all the dependencies from kick starts 
 in addition 
  - [lazygit](https://github.com/jesseduffield/lazygit) - must be installed on your system

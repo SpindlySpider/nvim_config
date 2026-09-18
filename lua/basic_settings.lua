@@ -77,3 +77,4 @@ vim.opt.hlsearch = true
 
 -- set fold level
 vim.o.foldlevel = 8
+
