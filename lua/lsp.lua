@@ -9,11 +9,8 @@ vim.pack.add({
 --- MASON options
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = { "emmylua_ls", "pyright", "stylelua","isort" }
+  ensure_installed = { "emmylua_ls", "basedpyright", "stylelua","isort","ruff" }
 })
-
-
-
 
 
 --- LSP options
@@ -29,8 +26,8 @@ vim.lsp.enable("emmylua_ls")
 
 --- python options
 
-vim.lsp.config["pyright"] = {
+vim.lsp.config["basedpyright"] = {
   filetypes = {"python"},
 }
 
-vim.lsp.enable("pyright")
+vim.lsp.enable("basedpyright")
