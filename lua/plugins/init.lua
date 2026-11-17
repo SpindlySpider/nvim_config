@@ -12,7 +12,7 @@ require("plugins.indent-line")
 require("plugins.mini")
 require("plugins.float-vim")
 require("plugins.lsp-signature")
--- require("plugins.auto-complete") -- testing mini complete instead of cmp
+require("plugins.auto-complete") -- testing mini complete instead of cmp
 require("plugins.diffview")
 require("plugins.ufo")
--- require("plugins.alpha")
+require("plugins.alpha")

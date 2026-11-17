@@ -26,7 +26,7 @@ require("mini.move").setup()
 
 -- auto complete
 -- https://github.com/nvim-mini/mini.completion
-require("mini.completion").setup()
+-- require("mini.completion").setup()
 -- recommended for complete:
 require("mini.icons").setup()
 require("mini.snippets").setup()
