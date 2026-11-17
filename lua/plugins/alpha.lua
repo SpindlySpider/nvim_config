@@ -2,6 +2,12 @@ local cat = require 'plugins.alpha-headers.cat'
 local k_flower = require 'plugins.alpha-headers.karma_flower'
 local scug = require 'plugins.alpha-headers.scug'
 
+vim.pack.add {
+  'https://github.com/goolord/alpha-nvim',
+}
+
+math.randomseed(os.time())
+
 local function gen_button(shortcut, txt, on_press_fn)
   return {
     type = 'button',
@@ -17,18 +23,12 @@ local function gen_button(shortcut, txt, on_press_fn)
       width = 30,
       align_shortcut = 'right',
       position = 'center',
+      hl="AlphaButtons"
     },
   }
 end
 
-math.randomseed(os.time())
-
-vim.pack.add {
-  'https://github.com/goolord/alpha-nvim',
-}
-
-local alpha = require 'alpha'
-
+-- get random header
 header_list = { scug, k_flower, cat }
 local header = {
   type = 'text',
@@ -36,6 +36,7 @@ local header = {
   opts = {
     position = 'center',
     width = 50,
+    hl="AlphaHeader"
   },
 }
 
@@ -55,16 +56,42 @@ local buttons = {
     gen_button('f', 'Browse files (Neotree)', function()
       vim.cmd 'Neotree'
     end),
+    gen_button('q', '[QUIT]', function()
+      vim.cmd 'q'
+    end),
+  },
+}
+
+local bar = {
+  type="text",
+  val = "-------------------------------------",
+  opts = {
+    position = 'center',
+    width = 50,
+    hl="AlphaHeader"
   },
 }
 
 local config = {
   layout = {
-    { type = 'padding', val = 2 },
+    { type = 'padding', val = 1 },
     header,
+    { type = 'padding', val = 1 },
+    bar,
+    { type = 'padding', val = 2 },
+    bar,
+    { type = 'padding', val = 2 },
     buttons,
     { type = 'padding', val = 2 },
   },
 }
+
+
+local alpha = require 'alpha'
+-- set colour groups:
+-- AlphaHeader
+-- AlphaButtons
+vim.cmd("highlight AlphaHeader guifg=#FFFDB5")
+vim.cmd("highlight AlphaButtons guifg=#C4C4C4")
 
 alpha.setup(config)
