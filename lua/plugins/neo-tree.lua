@@ -18,7 +18,9 @@ require("neo-tree").setup({
         require("neo-tree.command").execute({ action = "close" })
       end
     },
-  }
+  },
+  follow_current_file = true,
+  enable_git_status = true
 })
 
 -- neo tree keybinds

@@ -31,3 +31,10 @@ vim.lsp.config["basedpyright"] = {
 }
 
 vim.lsp.enable("basedpyright")
+
+-- js
+vim.lsp.config["biome"] = {
+  filetypes={"js"}
+}
+
+vim.lsp.enable("biome")
